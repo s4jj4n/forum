@@ -6,13 +6,23 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4>{{ $thread->title }}</h4>
+                        <a href="#">{{ $thread->creator->name }}</a> posted:
+                        {{ $thread->title }}
                     </div>
 
                     <div class="panel-body">
                         <div class="body">{{ $thread->body }}</div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                @foreach($replies as $reply)
+                    @include('threads.reply')
+                @endforeach
+
             </div>
         </div>
     </div>
