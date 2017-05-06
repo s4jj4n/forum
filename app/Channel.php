@@ -8,8 +8,13 @@ class Channel extends Model
 {
     protected $guarded = [];
 
-    protected function Threads()
+    public function threads()
     {
         return $this->hasMany(Thread::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }
