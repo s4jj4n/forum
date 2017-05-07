@@ -16,7 +16,9 @@ class FavoritesController extends Controller
 
     public function store(Reply $reply)
     {
-        return $reply->favorite();
+        $reply->favorite();
+
+        return back();
 
 //        $reply->favorites()->create(['user_id'  => auth()->id()]);
 
@@ -25,6 +27,6 @@ class FavoritesController extends Controller
 //            'favorited_id' => $reply->id,
 //            'favorited_type' => get_class($reply)
 //        ]);
-        
+
     }
 }
