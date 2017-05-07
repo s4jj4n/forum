@@ -30,7 +30,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="title">Title:</label>
+                                <label for="title">Body:</label>
                                 <textarea name="body" id="body" rows="8"
                                           class="form-control" required>{{ old('body') }}</textarea>
                             </div>
