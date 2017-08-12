@@ -68,11 +68,11 @@ class ThreadsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param $channelId
+     * @param $channel
      * @param  \App\Thread $thread
      * @return \Illuminate\Http\Response
      */
-    public function show($channelId, Thread $thread)
+    public function show($channel, Thread $thread)
     {
 //        return Thread::withCount('replies')->find(51);
 //        return $thread->load('replies');
@@ -83,38 +83,17 @@ class ThreadsController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Thread $thread
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Thread $thread)
+    public function destroy($channel, Thread $thread)
     {
-        //
-    }
+//        $thread->replies()->delete();
+        $thread->delete();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Thread $thread
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Thread $thread)
-    {
-        //
-    }
+        if (request()->wantsJson()) {
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Thread $thread
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Thread $thread)
-    {
-        //
+            return response([], 204);
+        }
+
+        return redirect('/threads');
     }
 
     /**
