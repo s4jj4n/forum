@@ -6,6 +6,12 @@ namespace App;
 
 trait Favoritable
 {
+    protected static function bootFavoritable()
+    {
+        static::deleting(function ($model) {
+            $model->favorites->each->delete();
+        });
+    }
 
     public function favorites()
     {
@@ -24,10 +30,9 @@ trait Favoritable
     {
         $attributes = ['user_id' => auth()->id()];
 
-        $this->favorites()->where($attributes)->delete();
-//        if (!$this->favorites()->where($attributes)->exists()) {
-//            return $this->favorites()->create($attributes);
-//        }
+        $this->favorites()->where($attributes)->get()->each->delete();
+
+//        $this->favorites()->where($attributes)->delete(); //Model delete event didn't fire bcoz this is just an sql. Call model delete to trigger events as shown above.
     }
 
     public function isFavorited()
