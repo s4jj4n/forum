@@ -13,6 +13,7 @@ Route::delete('/threads/{channel}/{thread}', 'ThreadsController@destroy')->name(
 //Route::get('/threads/{channel}', 'ThreadsController@index')->name('channel.threads');
 Route::post('/threads', 'ThreadsController@store')->name('threads.store');
 Route::post('/threads/{channel}/{thread}/replies', 'RepliesController@store')->name('replies.store');
+Route::delete('/replies/{reply}', 'RepliesController@destroy');
 
 Route::get('/threads/{channel?}', 'ThreadsController@index')->name('threads.index');
 
