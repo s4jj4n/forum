@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Activity;
+use App\Favorite;
 use App\Reply;
 use Illuminate\Auth\AuthenticationException;
 use Tests\TestCase;
@@ -70,9 +72,10 @@ class ParticipateInThreadsTest extends TestCase
          $this->signIn();
 
          $reply = create(Reply::class, ['user_id' => auth()->id()]);
-
+         $this->post(route('favorites.store', $reply->id));
          $this->delete("/replies/{$reply->id}")->assertStatus(302);
 
          $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+         $this->assertEquals(1, Activity::count());
      }
 }

@@ -12,6 +12,16 @@ class Reply extends Model
 
     protected $with = ['owner', 'favorites'];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($reply) {
+            $reply->favorites->each->delete();
+        });
+
+    }
+
     public function Thread()
     {
         return $this->belongsTo(Thread::class);
