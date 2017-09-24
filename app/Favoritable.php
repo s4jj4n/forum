@@ -20,9 +20,24 @@ trait Favoritable
         }
     }
 
+    public function unfavorite()
+    {
+        $attributes = ['user_id' => auth()->id()];
+
+        $this->favorites()->where($attributes)->delete();
+//        if (!$this->favorites()->where($attributes)->exists()) {
+//            return $this->favorites()->create($attributes);
+//        }
+    }
+
     public function isFavorited()
     {
         return !!$this->favorites->where('user_id', auth()->id())->count();
+    }
+
+    public function getIsFavoritedAttribute()
+    {
+        return $this->isFavorited();
     }
 
     public function getFavoritesCountAttribute()
