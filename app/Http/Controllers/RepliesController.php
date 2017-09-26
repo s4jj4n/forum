@@ -13,22 +13,18 @@ class RepliesController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param $channelId
-     * @param Thread $thread
-     * @return \Illuminate\Http\Response
-     * @internal param Request $request
-     */
     public function store($channelId, Thread $thread)
     {
         $this->validate(request(), ['body' => 'required']);
 
-        $thread->addReply([
+        $reply = $thread->addReply([
             'body' => request('body'),
             'user_id' => auth()->id()
         ]);
+
+        if (request()->expectsJson()) {
+            return $reply->load('owner');
+        }
 
         return back()->with('flash', 'Your reply has been left.');
     }
