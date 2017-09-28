@@ -78,10 +78,7 @@ class ThreadsController extends Controller
 //        return Thread::withCount('replies')->find(51);
 //        return $thread->load('replies');
 
-        return view('threads.show', [
-            'thread' => $thread,
-            'replies' => $thread->replies()->paginate(20)
-        ]);
+        return view('threads.show', compact('thread'));
     }
 
     public function destroy($channel, Thread $thread)
