@@ -1,0 +1,18 @@
+version: '2'
+services:
+  forum.pv:
+    container_name: forum.pv
+    image: pagevamp/nginx-php7-fpm:7.0
+    restart: always
+    #env_file: .env
+    environment:
+      - VIRTUAL_HOST=forum.pv
+    volumes:
+      - .:/var/www
+      - ./docker/sites/default.conf:/etc/nginx/sites-enabled/default
+    networks:
+      - pagevamp
+
+networks:
+  pagevamp:
+    external: true
